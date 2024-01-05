@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BudayaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BudayaController::class, 'home'])->name('index');
+
+
+Route::get('/budaya/{id}', [BudayaController::class, 'show'])->name('budaya.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// route get quiz and display quiz with no controler 
+Route::get('/quiz', function () {
+    return view('quiz');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
